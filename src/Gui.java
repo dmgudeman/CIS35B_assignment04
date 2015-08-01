@@ -3,6 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Created by davidgudeman on 8/1/15.
@@ -16,6 +20,7 @@ public class Gui
     public static JLabel JL_subTitle = null;
     public static JLabel JL_subTitle2 = null;
 
+    public static JButton JB_chooseFile = null;
     public static JLabel JL_input = null;
     public static JTextField TF_inputFilename = null;
     public static JTextArea TA_inputContent = null;
@@ -30,7 +35,8 @@ public class Gui
     public static JLabel JL_convertButton = null;
     public static JButton JB_convertButton = null;
 
-    public Gui() throws Exception {
+    public Gui() throws Exception
+    {
         BuildGui();
     }
 
@@ -40,7 +46,7 @@ public class Gui
         MainWindow.setSize(600, 1200);
         MainWindow.setTitle("CSV to XML CONVERTER");
         MainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        panel  = new JPanel(new GridBagLayout());
+        panel = new JPanel(new GridBagLayout());
 
         // creates panel DG
         panel = new JPanel(new GridBagLayout());
@@ -57,6 +63,7 @@ public class Gui
         JL_subTitle.setFont(new Font("Geneva", Font.ROMAN_BASELINE, 15));
         JL_subTitle.setBackground(purpleDark);
 
+        JB_chooseFile = new JButton("CHOOSE FILE");
         JL_input = new JLabel("INPUT FILENAME: ");
         TF_inputFilename = new JTextField(15);
         TA_inputContent = new JTextArea(25, 50);
@@ -98,22 +105,29 @@ public class Gui
         c.gridwidth = 4;
         panel.add(JL_subTitle, c);
 
-        c.anchor = GridBagConstraints.EAST;
         c.gridx = 0;
         c.gridy = 2;
+        c.gridwidth = 1;
+        panel.add(JB_chooseFile, c);
+
+        c.anchor = GridBagConstraints.EAST;
+        c.gridx = 0;
+        c.gridy = 3;
+        c.weighty=0;
         c.gridwidth = 1;
         panel.add(JL_input, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
-        c.gridy = 2;
-        c.gridwidth = 3;
+        c.gridy = 3;
+        c.weighty = 1;
+        c.gridwidth = 4;
         panel.add(TF_inputFilename, c);
 
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 4;
         c.gridwidth = 4;
-        c.ipady = 200;
+       // c.ipady = 100;
         c.fill = GridBagConstraints.HORIZONTAL;
         panel.add(TA_inputContent, c);
 
@@ -162,7 +176,6 @@ public class Gui
         MainWindow.add(panel, BorderLayout.CENTER);
 
         MainWindow.setVisible(true);
-
         // ActionListener added to NEXT button
         JB_convertButton.addActionListener(new ActionListener()
         {
@@ -172,6 +185,7 @@ public class Gui
                 java.awt.EventQueue.invokeLater(new Runnable()
                 {
                     STCServer s = new STCServer();
+
                     @Override
                     public void run()
                     {
@@ -180,6 +194,56 @@ public class Gui
                 });
             }
         });
+
+        // ActionListener added to PREV button
+        JB_chooseFile.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+
+                java.awt.EventQueue.invokeLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            JB_inputActionPerformed();
+                        }
+                        catch (IOException f)
+                        {
+                              JOptionPane.showMessageDialog(null, f);
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+    }
+
+
+
+    public void JB_inputActionPerformed() throws IOException
+    {
+        JFileChooser chooser = new JFileChooser("/Users/davidgudeman/Documents/workspace/CIS35B_assignment04");
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        TF_inputFilename.setText(filename);
+
+        try
+        {
+            FileReader reader = new FileReader(filename);
+            BufferedReader br = new BufferedReader(reader);
+            TA_inputContent.read(br, null);
+            br.close();
+            TA_inputContent.requestFocus();
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
 
     }
 
