@@ -8,12 +8,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 // server
-public class Server
+public class Server extends Thread
 {
     ServerSocket servsock = null;
     Socket socket = null;
 
-    public void Transfer(int port,String sfile) throws IOException
+    public void Transfer(int port, String sfile) throws IOException
     {
         servsock = new ServerSocket(port);
         File myFile = new File(sfile);

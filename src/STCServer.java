@@ -5,8 +5,9 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class CTSServer extends Thread {
-    public static final int PORT = 3335;
+public class STCServer extends Thread
+{
+    public static final int PORT = 1234;
     public static final int BUFFER_SIZE = 100;
 
     @Override
@@ -29,7 +30,7 @@ public class CTSServer extends Thread {
         // 1. Read file name.
         Object o = ois.readObject();
         if (o instanceof String) {
-            fos = new FileOutputStream(new File("/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest-down.csv"));
+            fos = new FileOutputStream(new File("/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/test-down.csv"));
         } else {
             throwException("Something is wrong");
         }
@@ -52,6 +53,7 @@ public class CTSServer extends Thread {
         } while (bytesRead == BUFFER_SIZE);
 
         System.out.println("File transfer success");
+
         fos.close();
 
         ois.close();
@@ -63,6 +65,6 @@ public class CTSServer extends Thread {
     }
 
     public static void main(String[] args) {
-        new CTSServer().start();
+        new STCServer().start();
     }
 }
