@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class STCClient extends Thread {
     public static final int PORT = 1234;
     public static final int BUFFER_SIZE = 100;
-    public  static String FILE_TO_SEND = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/test.csv";
+    public  static String FILE_TO_SEND = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest-down-xml.csv";
 
     @Override
 
