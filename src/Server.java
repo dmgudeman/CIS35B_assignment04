@@ -1,46 +1,38 @@
-import java.lang.*;
-import java.io.*;
-import java.net.*;
 
-class Server
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+// server
+public class Server
 {
-    // server
-    ServerSocket server = null;
-    // client
+    ServerSocket servsock = null;
     Socket socket = null;
 
-    // method to send a message
-    public void sendMessage(String smsg)
+    public void Transfer(int port,String sfile) throws IOException
     {
-        try
+        servsock = new ServerSocket(port);
+        File myFile = new File(sfile);
+        while (true)
         {
-            // Creates a server socket, bound to the specified port
-            server = new ServerSocket(1234);  // port 1234
-            // Listens for a connection to be made to this socket and accepts it.
-            // The method blocks until a connection is made.
-            socket = server.accept();
-            // <debug>
-            System.out.print("Server has connected!\n");
-            // The PrintWriter class enables you to write formatted data
-            // to an underlying Writer
-            PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
-            // <debug>
-            System.out.print("Sending string: " + smsg + "\n");
-            // write message to port
-            pw.print(smsg);
-            // close the ports
-            pw.close();
+            socket = servsock.accept();
+            byte[] mybytearray = new byte[(int) myFile.length()];
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(myFile));
+            bis.read(mybytearray, 0, mybytearray.length);
+            OutputStream os = socket.getOutputStream();
+            os.write(mybytearray, 0, mybytearray.length);
+            os.flush();
             socket.close();
-            server.close();
-        }
-        catch(Exception e)
-        {
-            System.out.print("Connection failed\n");
         }
     }
-    public static void main(String args[])
+
+    public static void main(String[] args) throws IOException
     {
-        Server server = new Server();
-        server.sendMessage("Hello from Server");
+        Server xfer = new Server();
+        xfer.Transfer(1234, "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/test.csv");
     }
 }
