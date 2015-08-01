@@ -63,7 +63,15 @@ public class STCServer extends Thread
     public static void throwException(String message) throws Exception {
         throw new Exception(message);
     }
-
+    public void runProgram()
+    {
+        new CTSServer().start();
+        new CTSClient().start();
+        ReadCsv r = new ReadCsv();
+        r.readCsv();
+        new STCServer().start();
+        new STCClient().start();
+    }
     public static void main(String[] args) {
         new STCServer().start();
     }

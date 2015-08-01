@@ -12,14 +12,7 @@ public class Main
     {
         Gui gui = new Gui();
 
-       /* new CTSServer().start();
-        new CTSClient().start();
-        ReadCsv r = new ReadCsv();
-        r.readCsv();
-        new STCServer().start();
-        new STCClient().start();
-
-*/
 
     }
+
 }

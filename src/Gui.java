@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by davidgudeman on 8/1/15.
@@ -162,6 +163,23 @@ public class Gui
 
         MainWindow.setVisible(true);
 
+        // ActionListener added to NEXT button
+        JB_convertButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+
+                java.awt.EventQueue.invokeLater(new Runnable()
+                {
+                    STCServer s = new STCServer();
+                    @Override
+                    public void run()
+                    {
+                        s.runProgram();
+                    }
+                });
+            }
+        });
 
     }
 
