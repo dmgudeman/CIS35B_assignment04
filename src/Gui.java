@@ -36,10 +36,26 @@ public class Gui
     public static JLabel JL_convertButton = null;
     public static JButton JB_convertButton = null;
 
-    public Gui() throws Exception
+    public Gui()
     {
-        BuildGui();
-    }
+        Runnable code = new Runnable()
+        {
+            public void run()
+            {
+                System.out.println("BEFORE SwingUtilities.isEventDispatchThread(): " + SwingUtilities.isEventDispatchThread());
+                BuildGui();
+                System.out.println("AFTER SwingUtilities.isEventDispatchThread(): " + SwingUtilities.isEventDispatchThread());
+            }};
+            if (SwingUtilities.isEventDispatchThread())
+
+            {
+                System.out.println("SwingUtilities.isEventDispatchThread(): " + SwingUtilities.isEventDispatchThread());
+                code.run();
+            }else{
+                SwingUtilities.invokeLater(code);
+            }
+        }
+
 
     public void BuildGui()
     {
@@ -195,7 +211,11 @@ public class Gui
                     {
                         //s.runProgram();
                         new CTSServer().start();
-                        new CTSClient().start();
+                        CTSClient ctsClient = new CTSClient();
+                        Thread thread1 = new Thread(ctsClient);
+                        System.out.println("JB_convertButton pressed");
+                        thread1.setName("ctsClient");
+                        thread1.start();
                         ReadCsv r = new ReadCsv();
                         r.readCsv();
 
@@ -250,9 +270,6 @@ public class Gui
         }
     }
 
-    public static void main (String[] args) throws Exception
-    {
-        Gui gui = new Gui();
-    }
+   
 
 }

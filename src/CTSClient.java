@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,7 +8,7 @@ import java.lang.*;
 import java.util.Scanner;
 
 
-public class CTSClient extends Thread {
+public class CTSClient implements Runnable {
     public static final int PORT = 3335;
     public static final int BUFFER_SIZE = 100;
     public static String FILE_TO_SEND = Gui.TF_inputFilename.getText();
@@ -18,8 +19,11 @@ public class CTSClient extends Thread {
     {
         try
         {
+            Thread thread = Thread.currentThread();
             Socket socket = new Socket("localhost", PORT);
             File file = new File(FILE_TO_SEND);
+            System.out.println("CTSClient SwingUtilities.isEventDispatchThread(): " + SwingUtilities.isEventDispatchThread());
+            System.out.println("RunnableJob is being run by " + thread.getName() + " (" + thread.getId() + ")");
             work(socket, file);
         }
         catch (UnknownHostException e)
@@ -52,11 +56,6 @@ public class CTSClient extends Thread {
         oos.close();
         ois.close();
         System.exit(0);
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        new CTSClient().start();
     }
 
 }

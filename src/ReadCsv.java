@@ -31,9 +31,9 @@ public class ReadCsv
                 writer.println("<car>" + "\n\t<year>" + cars[0] + "</year>\n\t<make>"
                         + cars[1] + "</make>\n\t<model>" + cars[2] + "</model>\n\t<description>"
                         + cars[3] + "</description>\n\t<price>" + cars[4] + "</price>\n</car>");
-                Gui.TA_outputContent.append("<car>" + "\n\t<year>" + cars[0] + "</year>\n\t<make>"
-                        + cars[1] + "</make>\n\t<model>" + cars[2] + "</model>\n\t<description>"
-                        + cars[3] + "</description>\n\t<price>" + cars[4] + "</price>\n</car>");
+               // Gui.TA_outputContent.append("<car>" + "\n\t<year>" + cars[0] + "</year>\n\t<make>"
+              //          + cars[1] + "</make>\n\t<model>" + cars[2] + "</model>\n\t<description>"
+                //        + cars[3] + "</description>\n\t<price>" + cars[4] + "</price>\n</car>");
 
 
             }

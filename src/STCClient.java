@@ -56,9 +56,6 @@ public class STCClient extends Thread {
 
 
 
-    public static void main(String[] args) throws Exception {
 
-        new CTSClient().start();
-    }
 
 }
