@@ -7,7 +7,8 @@ import java.io.*;
  */
 public class ReadCsv {
     public void readCsv() {
-        String csvFileToRead = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest.csv";
+        String csvFileToRead  = Gui.TF_inputFilename.getText();
+      //  String csvFileToRead = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest.csv";
         String xmlFileWrittenTo= "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest-down-xml.csv";
         BufferedReader br = null;
         String line = "";

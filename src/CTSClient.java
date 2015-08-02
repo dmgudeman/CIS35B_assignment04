@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CTSClient extends Thread {
     public static final int PORT = 3335;
     public static final int BUFFER_SIZE = 100;
-    public  static String FILE_TO_SEND = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest.csv";
+    public static String FILE_TO_SEND = Gui.TF_inputFilename.getText();
 
     @Override
 
@@ -53,8 +53,6 @@ public class CTSClient extends Thread {
         ois.close();
         System.exit(0);
     }
-
-
 
     public static void main(String[] args) throws Exception {
 

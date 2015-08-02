@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class STCClient extends Thread {
     public static final int PORT = 1234;
     public static final int BUFFER_SIZE = 100;
-    public  static String FILE_TO_SEND = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest-down-xml.csv";
+    public  static String FILE_TO_RETURN = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest-down-xml.csv";
 
     @Override
 
@@ -19,7 +19,7 @@ public class STCClient extends Thread {
         try
         {
             Socket socket = new Socket("localhost", PORT);
-            File file = new File(FILE_TO_SEND);
+            File file = new File(FILE_TO_RETURN);
             work(socket, file);
         }
         catch (UnknownHostException e)

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Gui
 {
     public static JFrame MainWindow;
-    private static JPanel panel;
+    public static JPanel panel;
 
     public static JLabel JL_TITLE = null;
     public static JLabel JL_subTitle = null;
@@ -24,6 +24,7 @@ public class Gui
     public static JLabel JL_input = null;
     public static JTextField TF_inputFilename = null;
     public static JTextArea TA_inputContent = null;
+    public static JScrollPane JSP_pane  = null;
 
     public static JLabel JL_output = null;
     public static JTextField TF_outputFileName = null;
@@ -43,14 +44,14 @@ public class Gui
     public void BuildGui()
     {
         MainWindow = new JFrame();
-        MainWindow.setSize(600, 1200);
+        MainWindow.setSize(700, 1300);
         MainWindow.setTitle("CSV to XML CONVERTER");
         MainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel = new JPanel(new GridBagLayout());
 
         // creates panel DG
         panel = new JPanel(new GridBagLayout());
-        panel.setSize(700, 300);
+        panel.setSize(600, 1200);
         Color purpleMedium = new Color(93, 119, 178, 150);
         Color purpleDark = new Color(50, 50, 50, 150);
         panel.setBackground(purpleMedium);
@@ -66,7 +67,11 @@ public class Gui
         JB_chooseFile = new JButton("CHOOSE FILE");
         JL_input = new JLabel("INPUT FILENAME: ");
         TF_inputFilename = new JTextField(15);
-        TA_inputContent = new JTextArea(25, 50);
+        TA_inputContent = new JTextArea(600, 600);
+        TA_inputContent.setLineWrap(true);
+        TA_inputContent.setPreferredSize(new Dimension(600, 600));
+        JSP_pane = new JScrollPane(TA_inputContent, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JSP_pane.setPreferredSize(new Dimension(600, 600));
 
         JL_port = new JLabel("PORT: ");
         TF_port = new JTextField(25);
@@ -127,9 +132,9 @@ public class Gui
         c.gridx = 0;
         c.gridy = 4;
         c.gridwidth = 4;
-       // c.ipady = 100;
+        c.ipady = 200;
         c.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(TA_inputContent, c);
+        panel.add(JSP_pane, c);
 
         c.anchor = GridBagConstraints.EAST;
         c.gridx = 0;
@@ -176,20 +181,25 @@ public class Gui
         MainWindow.add(panel, BorderLayout.CENTER);
 
         MainWindow.setVisible(true);
+
         // ActionListener added to NEXT button
         JB_convertButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent ae)
             {
-
                 java.awt.EventQueue.invokeLater(new Runnable()
                 {
                     STCServer s = new STCServer();
-
                     @Override
                     public void run()
                     {
-                        s.runProgram();
+                        //s.runProgram();
+                        new CTSServer().start();
+                        new CTSClient().start();
+                        ReadCsv r = new ReadCsv();
+                        r.readCsv();
+
+
                     }
                 });
             }
@@ -200,7 +210,6 @@ public class Gui
         {
             public void actionPerformed(ActionEvent ae)
             {
-
                 java.awt.EventQueue.invokeLater(new Runnable()
                 {
                     @Override
@@ -218,12 +227,7 @@ public class Gui
                 });
             }
         });
-
-
-
     }
-
-
 
     public void JB_inputActionPerformed() throws IOException
     {
@@ -244,7 +248,6 @@ public class Gui
         {
             JOptionPane.showMessageDialog(null, e);
         }
-
     }
 
     public static void main (String[] args) throws Exception
