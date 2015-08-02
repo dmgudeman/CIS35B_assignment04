@@ -30,7 +30,7 @@ public class STCServer extends Thread
         // 1. Read file name.
         Object o = ois.readObject();
         if (o instanceof String) {
-            fos = new FileOutputStream(new File("/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/test-down.csv"));
+            fos = new FileOutputStream(new File("/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/SERVERCTStest-down.csv"));
         } else {
             throwException("Something is wrong");
         }

@@ -209,17 +209,20 @@ public class Gui
                     @Override
                     public void run()
                     {
-                        //s.runProgram();
-                        new CTSServer().start();
-                        CTSClient ctsClient = new CTSClient();
-                        Thread thread1 = new Thread(ctsClient);
                         System.out.println("JB_convertButton pressed");
-                        thread1.setName("ctsClient");
-                        thread1.start();
+                        CTSServer ctsServerObj =  new CTSServer();
+                        Thread ctsServerThread = new Thread(ctsServerObj, "ctsServerThread");
+                        ctsServerThread.start();
+
+
+                        CTSClient ctsClientObj = new CTSClient();
+                        Thread ctsClientThread = new Thread(ctsClientObj);
+                        ctsClientThread.setName("ctsClientThread");
+                        ctsClientThread.start();
+
+
                         ReadCsv r = new ReadCsv();
                         r.readCsv();
-
-
                     }
                 });
             }
@@ -237,7 +240,9 @@ public class Gui
                     {
                         try
                         {
-                            JB_inputActionPerformed();
+                            System.out.println("JB_chooseFile.AddActionLister SwingUtilities.isEventDispatchThread(): "
+                                    + SwingUtilities.isEventDispatchThread());
+                            JB_chooserActionPerformed();
                         }
                         catch (IOException f)
                         {
@@ -249,7 +254,7 @@ public class Gui
         });
     }
 
-    public void JB_inputActionPerformed() throws IOException
+    public void JB_chooserActionPerformed() throws IOException
     {
         JFileChooser chooser = new JFileChooser("/Users/davidgudeman/Documents/workspace/CIS35B_assignment04");
         chooser.showOpenDialog(null);
@@ -270,6 +275,6 @@ public class Gui
         }
     }
 
-   
+
 
 }

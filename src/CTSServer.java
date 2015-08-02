@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -12,15 +13,21 @@ public class CTSServer extends Thread {
     @Override
     public void run() {
         try {
+            Thread thread = Thread.currentThread();
             ServerSocket serverSocket = new ServerSocket(PORT);
+
+            System.out.println("CTSServer SwingUtilities.isEventDispatchThread(): " + SwingUtilities.isEventDispatchThread());
+            System.out.println("CTSServer is being run by " + thread.getName() + " (" + thread.getId() + ")");
+
             while (true) {
                 Socket s = serverSocket.accept();
-                saveFile(s);
+              //  saveFile(s);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private void saveFile(Socket socket) throws Exception {
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -51,7 +58,7 @@ public class CTSServer extends Thread {
             fos.write(buffer, 0, bytesRead);
         } while (bytesRead == BUFFER_SIZE);
 
-        System.out.println("File transfer success");
+        System.out.println("CTSServer File transfer success");
         fos.close();
 
         ois.close();

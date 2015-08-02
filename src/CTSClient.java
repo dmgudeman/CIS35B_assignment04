@@ -23,7 +23,7 @@ public class CTSClient implements Runnable {
             Socket socket = new Socket("localhost", PORT);
             File file = new File(FILE_TO_SEND);
             System.out.println("CTSClient SwingUtilities.isEventDispatchThread(): " + SwingUtilities.isEventDispatchThread());
-            System.out.println("RunnableJob is being run by " + thread.getName() + " (" + thread.getId() + ")");
+            System.out.println("CTSClient is being run by " + thread.getName() + " (" + thread.getId() + ")");
             work(socket, file);
         }
         catch (UnknownHostException e)

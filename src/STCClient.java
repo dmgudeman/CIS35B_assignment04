@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class STCClient extends Thread {
     public static final int PORT = 1234;
     public static final int BUFFER_SIZE = 100;
-    public  static String FILE_TO_RETURN = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CTStest-down-xml.csv";
+    public  static String FILE_TO_RETURN = "/Users/davidgudeman/Documents/workspace/CIS35B_assignment04/CLIENTCTStest-down-xml.csv";
 
     @Override
 
