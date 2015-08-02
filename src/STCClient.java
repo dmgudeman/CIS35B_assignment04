@@ -51,7 +51,7 @@ public class STCClient extends Thread {
 
         oos.close();
         ois.close();
-        System.exit(0);
+       // System.exit(0);
     }
 
 
